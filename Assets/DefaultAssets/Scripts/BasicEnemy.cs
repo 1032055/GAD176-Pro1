@@ -19,7 +19,9 @@ public class BasicEnemy : MonoBehaviour
     {
         if(playerObj == null)
         {
-            Debug.Log("Please attach the player object");
+            //Debug.Log("Please attach the player object"); dw, i got it >:))
+
+            playerObj = GameObject.FindGameObjectWithTag("Player");
         }
 
         enemyRb = GetComponent<Rigidbody2D>();
@@ -38,11 +40,12 @@ public class BasicEnemy : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject == playerObj)
         {
             Debug.Log("Enemy hits Player");
+            Destroy(this.gameObject);
         }
     }
     /* 
