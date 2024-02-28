@@ -8,6 +8,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private List<GameObject> enemySpawnPoints;
     [SerializeField] private GameObject enemyPrefab;
 
+    [SerializeField] private int totalEnemiesToSpawn;
     int i = 0;
 
     private void Start()
@@ -22,7 +23,7 @@ public class EnemyManager : MonoBehaviour
     private void Update()
     {
         
-        if(i < 10)
+        if(i < totalEnemiesToSpawn)
         {
             i++;
             Debug.Log(i);
@@ -39,7 +40,7 @@ public class EnemyManager : MonoBehaviour
         zoneSelector = Random.Range(0, enemySpawnPoints.Count);
         spawnZone = enemySpawnPoints[zoneSelector];
 
-        Instantiate(enemyPrefab, spawnZone.transform);
+        Instantiate(enemyPrefab, spawnZone.transform.position, spawnZone.transform.rotation);
 
         //Debug.Log("Spawn in zone: " + zoneSelector);
         //Debug.Log("Zone Name: " + spawnZone);

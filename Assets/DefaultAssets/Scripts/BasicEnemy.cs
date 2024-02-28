@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class BasicEnemy : MonoBehaviour
 {
-    [SerializeField] private int health, speed, attackDmg;
+    [SerializeField] private int enHealth, speed, attackDmg;
     [SerializeField] private GameObject playerObj;
     [SerializeField] private float testZ, testY, testX;
     
     private Rigidbody2D enemyRb;
 
     private Vector2 targetPos = Vector2.zero;
-
-    private Vector2 enemyRotXY = Vector2.zero; 
         
 
     void Start()
@@ -30,14 +28,29 @@ public class BasicEnemy : MonoBehaviour
         {
             Debug.Log("Please attach a rigid body to the enemy");
         }
-        enemyRotXY = new Vector2(transform.rotation.x, transform.rotation.y);
     }
 
     void Update()
     {
-        //Use Math A-Tan and Angle Axis
+        //check if its dead
+        if(enHealth <= 0)
+        {
+            //EnemyDies(); 
+        }
 
-        
+        //Use Math A-Tan and Angle Axis
+        //
+        //Vector2 relative = transform.InverseTransformPoint(targetPos);
+        //float angle = Mathf.Atan2(relative.y, relative.x);
+        //transform.rotation = Quaternion.Euler(0f, 0f, angle * Mathf.Rad2Deg);
+
+        //transform.LookAt(targetPos);
+
+        Vector3 relativePos = playerObj.transform.position - transform.position;
+
+        // the second argument, upwards, defaults to Vector3.up
+        Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.forward);
+        transform.rotation = rotation;
     }
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
@@ -45,8 +58,18 @@ public class BasicEnemy : MonoBehaviour
         if(collision.gameObject == playerObj)
         {
             Debug.Log("Enemy hits Player");
-            Destroy(this.gameObject);
+            
+            enHealth = 0;
         }
+    }
+
+    protected virtual void EnemyDies()
+    {
+        // play an explode particle effect
+        //not implemented yet
+
+        //bye bye
+        Destroy(this.gameObject);
     }
     /* 
     

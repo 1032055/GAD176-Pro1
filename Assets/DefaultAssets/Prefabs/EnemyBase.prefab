@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ee98a15f8eaa97479b68b45842af0fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  enHealth: 10
   speed: 0
   attackDmg: 0
   playerObj: {fileID: 0}
