@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enHealth: 10
-  speed: 0
+  speed: 300
   attackDmg: 0
   playerObj: {fileID: 0}
   testZ: 0
