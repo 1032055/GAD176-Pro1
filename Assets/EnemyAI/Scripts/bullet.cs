@@ -6,7 +6,7 @@ public class bullet : MonoBehaviour
 {
     private Rigidbody2D bulletRb;
     private GameObject playerObj;
-    [SerializeField] int bulletSpeed;
+    [SerializeField] int bulletSpeed, lifespan = 1;
     void Start()
     {
         bulletRb = GetComponent<Rigidbody2D>();
@@ -19,6 +19,7 @@ public class bullet : MonoBehaviour
 
         //same movement as the enemy objs but put in start because we dont want it changing direction
         bulletRb.velocity = (playerObj.transform.position - transform.position) * bulletSpeed * Time.deltaTime;
+        StartCoroutine(BulletLifetime());
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -35,5 +36,11 @@ public class bullet : MonoBehaviour
             //ded
             Destroy(this.gameObject);
         }   
+    }
+
+    IEnumerator BulletLifetime()
+    {
+        yield return new WaitForSeconds(lifespan);
+        Destroy(this.gameObject);
     }
 }

@@ -8,7 +8,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private List<GameObject> enemySpawnPoints;
     [SerializeField] private GameObject enemyBasePrefab, enemyComplexPrefab;
 
-    [SerializeField] private int totalEnemiesToSpawn;
+    [SerializeField] private int totalEnemiesToSpawn = 10;
     int i = 0;
 
     private void Start()

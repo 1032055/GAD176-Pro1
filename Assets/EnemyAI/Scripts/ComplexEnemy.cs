@@ -5,7 +5,6 @@ using UnityEngine;
 public class ComplexEnemy : BasicEnemy
 {
     [SerializeField] GameObject bulletPrefab;
-    //[SerializeField] int ammo;
     private float shootTime = 0f, shootRate = 0.5f;
     protected override void Start()
     {
@@ -53,7 +52,7 @@ public class ComplexEnemy : BasicEnemy
     {
         if (Time.time > shootTime)
         {
-            Debug.Log("pew");
+            //Debug.Log("pew");
             shootTime = Time.time + shootRate;
             Instantiate(bulletPrefab, transform.position, transform.rotation);
         }
