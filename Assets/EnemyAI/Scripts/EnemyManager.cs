@@ -6,7 +6,7 @@ public class EnemyManager : MonoBehaviour
 {
     // The List to store the points where enemies may spwan
     [SerializeField] private List<GameObject> enemySpawnPoints;
-    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject enemyBasePrefab, enemyComplexPrefab;
 
     [SerializeField] private int totalEnemiesToSpawn;
     int i = 0;
@@ -26,13 +26,25 @@ public class EnemyManager : MonoBehaviour
         if(i < totalEnemiesToSpawn)
         {
             i++;
-            Debug.Log(i);
-            SpawnEnemy();
+            //Debug.Log(i);
+
+            int enemyType = Random.Range(0, 2); // last is exclusive and we want it to be inclusive so we do the max + 1
+            //int enemyType = 1;
+            
+            if(enemyType == 0)
+            {
+                SpawnEnemy(enemyBasePrefab);
+            }
+            else if (enemyType == 1)
+            {
+                SpawnEnemy(enemyComplexPrefab);
+            }
+            
         }
         
     }
 
-    private void SpawnEnemy()
+    private void SpawnEnemy(GameObject enemyPrefab)
     {
         int zoneSelector;
         GameObject spawnZone;

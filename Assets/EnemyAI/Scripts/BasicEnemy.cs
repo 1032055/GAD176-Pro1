@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class BasicEnemy : MonoBehaviour
 {
-    [SerializeField] private int enHealth, speed, attackDmg;
-    [SerializeField] private GameObject playerObj;
-    [SerializeField] private float testZ, testY, testX;
+    [SerializeField] protected int enHealth, speed, attackDmg;
+    [SerializeField] protected GameObject playerObj;
+    [SerializeField] protected ParticleSystem explosion;
     
-    private Rigidbody2D enemyRb;
+    protected Rigidbody2D enemyRb;
 
-    private Vector2 move = new Vector2(1, 1);
-
-    void Start()
+    protected virtual void Start()
     {
         // null reference check, it's well used cos instantiation did not like grabbing the right object
         if(playerObj == null)
@@ -32,7 +30,7 @@ public class BasicEnemy : MonoBehaviour
         }
     }
 
-    void Update()
+    protected virtual void Update()
     {
         //check if its dead
         if(enHealth <= 0)
@@ -40,7 +38,15 @@ public class BasicEnemy : MonoBehaviour
             //if the enemy is dead, it will die
             EnemyDies(); 
         }
+    }
 
+    protected virtual void FixedUpdate()
+    {
+        EnemyMoveNdRotate();
+    }
+
+    protected virtual void EnemyMoveNdRotate()
+    {
         /* pseudocode from Frank (i was struggling and he is awesome)
 
         get target position
@@ -63,7 +69,6 @@ public class BasicEnemy : MonoBehaviour
         //it did not lets goooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
         enemyRb.velocity = (playerObj.transform.position - transform.position) * speed * Time.deltaTime; 
-
     }
     
     //checking the collision
@@ -73,7 +78,7 @@ public class BasicEnemy : MonoBehaviour
         if(collision.gameObject == playerObj)
         {
             //Kills this enemy
-            Debug.Log("Enemy hits Player");
+            //Debug.Log("Enemy hits Player");
             
             enHealth = 0;
         }
@@ -83,6 +88,7 @@ public class BasicEnemy : MonoBehaviour
     {
         // play an explode particle effect
         //not implemented yet
+        Instantiate(explosion, this.transform.position, this.transform.rotation);
 
         //bye bye
         Destroy(this.gameObject);
